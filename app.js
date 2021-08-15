@@ -17,6 +17,11 @@ const authSchema = new mongoose.Schema({
   googleId: String,
 });
 
+const userDataSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+});
+
 app.post("/auth/android/google/post", function (req, res) {
   const User = mongoose.model("users", authSchema);
 
@@ -42,6 +47,47 @@ app.post("/auth/android/google/post", function (req, res) {
     }
   });
 });
+
+app.post(
+  "/52408ce928fcece4a50261fcbb1c3a1556b12bd3ad2c32ee0fd5a8d429b46193",
+  function (req, res) {
+    const Data = mongoose.model("userDatas", userDataSchema);
+    const newData = new Data({
+      name: req.body.name,
+      email: req.body.email,
+    });
+    newData.save(function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Data added successfully!");
+      }
+    });
+  }
+);
+
+app.get(
+  "/52408ce928fcece4a50261fcbb1c3a1556b12bd3ad2c32ee0fd5a8d429b46193/:email",
+  function (req, res) {
+    const Data = mongoose.model("userDatas", userDataSchema);
+    const newData = new Data({
+      name: req.body.name,
+      email: req.body.email,
+    });
+    Data.findOne(
+      {
+        email: req.body.email,
+      },
+      function (err, found) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(found);
+        }
+      }
+    );
+  }
+);
 
 let port = process.env.PORT;
 if (port == null || port == "") {
