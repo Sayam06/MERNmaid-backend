@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.connect(
-  "mongodb+srv://mernmaidAdmin:wXh91FjaSYW4tQOR@mernmaid.rxi16.mongodb.net/Users?retryWrites=true&w=majority",
+  "{key}",
   { useNewUrlParser: true }
 );
 
